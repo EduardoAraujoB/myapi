@@ -2,13 +2,13 @@
 const mongoose = require("mongoose");
 
 // criando o Schema
-const ArticleSchema = mongoose.Schema({
-  title: {
+const MemberSchema = mongoose.Schema({
+  name: {
     type: String,
     required: true
   },
-  content: {
-    type: String,
+  birthdate: {
+    type: Date,
     required: true
   },
   created_at: {
@@ -18,4 +18,4 @@ const ArticleSchema = mongoose.Schema({
 });
 
 // iniciando o Schema
-mongoose.model("Article", ArticleSchema);
+mongoose.model("Member", MemberSchema);
