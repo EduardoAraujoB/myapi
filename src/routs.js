@@ -9,7 +9,7 @@ const MemberController = require("./controllers/MemberController");
 
 // rotas artigos
 routs.get("/articles", ArticleController.index);
-routs.get("articles/:id", ArticleController.show);
+routs.get("/articles/:id", ArticleController.show);
 routs.post("/articles", ArticleController.store);
 routs.put("/articles/:id", ArticleController.update);
 routs.delete("/articles/:id", ArticleController.destroy);
@@ -19,6 +19,6 @@ routs.get("/members", MemberController.index);
 routs.get("/members/:id", MemberController.show);
 routs.post("/members", MemberController.store);
 routs.put("/members/:id", MemberController.update);
-routs.delete("members/:id", MemberController.destroy);
+routs.delete("/members/:id", MemberController.destroy);
 
 module.exports = routs;
