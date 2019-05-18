@@ -1,5 +1,7 @@
+// importando ORM
 const mongoose = require("mongoose");
 
+// criando o Schema
 const MemberSchema = mongoose.Schema({
   name: {
     type: String,
@@ -15,4 +17,5 @@ const MemberSchema = mongoose.Schema({
   }
 });
 
+// iniciando o Schema
 mongoose.model("Member", MemberSchema);
