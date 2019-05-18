@@ -1,4 +1,7 @@
+// importando ORM
 const express = require("express");
+
+// preparando rotas
 const routs = express.Router();
 
 // controller artigos
