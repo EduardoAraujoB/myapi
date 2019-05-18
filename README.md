@@ -13,5 +13,6 @@ This project have a local Api using express.
 To run this prject edit the index.js moongose connect to your MongoDB config,
 and open the terminal and run the follow command:
 
---with node
+--with node:
+
 npm run dev
