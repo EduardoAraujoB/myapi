@@ -14,7 +14,13 @@ const MemberSchema = mongoose.Schema({
   articles: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      required: true
+      ref: "Article"
+    }
+  ],
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
     }
   ],
   created_at: {

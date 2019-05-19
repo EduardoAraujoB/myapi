@@ -16,6 +16,12 @@ const ArticleSchema = mongoose.Schema({
     ref: "Member",
     required: true
   },
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Comment"
+    }
+  ],
   created_at: {
     type: Date,
     default: Date.now
