@@ -4,6 +4,8 @@ const mongoose = require("mongoose");
 // iniciando o model
 const Article = mongoose.model("Article");
 
+const Member = mongoose.model("Member");
+
 module.exports = {
   // listando todos os registros
   async index(req, res) {
@@ -20,6 +22,9 @@ module.exports = {
   // guardando um novo registro
   async store(req, res) {
     const article = await Article.create(req.body);
+    await Member.findByIdAndUpdate(article.member, {
+      articles: [article._id]
+    });
 
     return res.json(article);
   },
