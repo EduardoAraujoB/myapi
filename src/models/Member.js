@@ -11,6 +11,12 @@ const MemberSchema = mongoose.Schema({
     type: Date,
     required: true
   },
+  articles: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true
+    }
+  ],
   created_at: {
     type: Date,
     default: Date.now

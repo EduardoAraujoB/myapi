@@ -11,6 +11,11 @@ const ArticleSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  member: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Member",
+    required: true
+  },
   created_at: {
     type: Date,
     default: Date.now
