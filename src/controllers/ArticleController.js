@@ -9,13 +9,13 @@ const Member = mongoose.model("Member");
 module.exports = {
   // listando todos os registros
   async index(req, res) {
-    const article = await Article.find();
+    const article = await Article.find().populate("member");
 
     return res.json(article);
   },
   // exibindo um registro
   async show(req, res) {
-    const article = await Article.findById(req.params.id);
+    const article = await Article.findById(req.params.id).populate("member");
 
     return res.json(article);
   },

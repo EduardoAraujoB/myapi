@@ -16,7 +16,8 @@ const ArticleSchema = new Schema({
   member: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Member",
-    childPath: "article"
+    childPath: "article",
+    required: true
   },
   created_at: {
     type: Date,
