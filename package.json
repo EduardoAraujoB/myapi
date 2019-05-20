@@ -14,6 +14,8 @@
     "cors": "^2.8.5",
     "express": "^4.17.0",
     "mongoose": "^5.5.9",
+    "mongoose-relationship": "^0.1.5",
+    "mongoose-relationships": "^0.4.0",
     "require-dir": "^1.2.0"
   },
   "devDependencies": {

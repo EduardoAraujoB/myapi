@@ -4,16 +4,18 @@ const mongoose = require("mongoose");
 // iniciando o model
 const Member = mongoose.model("Member");
 
+const Article = mongoose.model("Article");
+
 module.exports = {
   // listando todos os registros
   async index(req, res) {
-    const member = await Member.find();
+    const member = await Member.find().populate("article");
 
     return res.json(member);
   },
   // exibindo um registro
   async show(req, res) {
-    const member = await Member.findById(req.params.id);
+    const member = await Member.findById(req.params.id).populate("article");
 
     return res.json(member);
   },
@@ -33,8 +35,11 @@ module.exports = {
   },
   // apagando um registro
   async destroy(req, res) {
-    await Member.findByIdAndRemove(req.params.id);
-
+    const member = await Member.findById(req.params.id);
+    member.article.map(async id => {
+      await Article.findByIdAndRemove(id);
+    });
+    await member.remove();
     res.send();
   }
 };
