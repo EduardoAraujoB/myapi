@@ -1,8 +1,9 @@
 // importando ORM
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
 
 // criando o Schema
-const MemberSchema = mongoose.Schema({
+const MemberSchema = new Schema({
   name: {
     type: String,
     required: true
@@ -11,16 +12,10 @@ const MemberSchema = mongoose.Schema({
     type: Date,
     required: true
   },
-  articles: [
+  article: [
     {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.ObjectId,
       ref: "Article"
-    }
-  ],
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment"
     }
   ],
   created_at: {

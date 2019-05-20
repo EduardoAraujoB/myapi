@@ -21,10 +21,8 @@ module.exports = {
   },
   // guardando um novo registro
   async store(req, res) {
-    const article = await Article.create(req.body);
-    await Member.findByIdAndUpdate(article.member, {
-      articles: [article._id]
-    });
+    const article = new Article(req.body);
+    await article.save();
 
     return res.json(article);
   },
@@ -37,7 +35,12 @@ module.exports = {
   },
   // apagando um registro
   async destroy(req, res) {
-    await Article.findByIdAndRemove(req.params.id);
+    const article = await Article.findById(req.params.id);
+    await Member.findByIdAndUpdate(article.member, {
+      $pullAll: { article: [article._id] }
+    });
+
+    await article.remove();
 
     return res.send();
   }

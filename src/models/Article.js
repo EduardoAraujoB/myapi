@@ -1,8 +1,10 @@
 // importando ORM
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const relationship = require("mongoose-relationship");
 
 // criando o Schema
-const ArticleSchema = mongoose.Schema({
+const ArticleSchema = new Schema({
   title: {
     type: String,
     required: true
@@ -14,14 +16,8 @@ const ArticleSchema = mongoose.Schema({
   member: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Member",
-    required: true
+    childPath: "article"
   },
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Comment"
-    }
-  ],
   created_at: {
     type: Date,
     default: Date.now
@@ -29,4 +25,5 @@ const ArticleSchema = mongoose.Schema({
 });
 
 // iniciando o Schema
+ArticleSchema.plugin(relationship, { relationshipPathName: "member" });
 mongoose.model("Article", ArticleSchema);
