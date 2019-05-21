@@ -18,6 +18,12 @@ const MemberSchema = new Schema({
       ref: "Article"
     }
   ],
+  comment: [
+    {
+      type: Schema.ObjectId,
+      ref: "Comment"
+    }
+  ],
   created_at: {
     type: Date,
     default: Date.now
