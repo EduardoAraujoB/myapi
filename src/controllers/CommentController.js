@@ -4,6 +4,10 @@ const mongoose = require("mongoose");
 // iniciando o model
 const Comment = mongoose.model("Comment");
 
+const Article = mongoose.model("Article");
+
+const Member = mongoose.model("Member");
+
 module.exports = {
   // listando todos os registros
   async index(req, res) {
@@ -33,7 +37,14 @@ module.exports = {
   },
   // apagando um registro
   async destroy(req, res) {
-    await Comment.findByIdAndRemove(req.params.id);
+    const comment = await Comment.findById(req.params.id);
+    await Article.findByIdAndUpdate(comment.article, {
+      $pullAll: { comment: [comment._id] }
+    });
+    await Member.findByIdAndUpdate(comment.member, {
+      $pullAll: { comment: [comment._id] }
+    });
+    comment.remove();
 
     return res.send();
   }

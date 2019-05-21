@@ -1,8 +1,10 @@
 // importando ORM
 const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const relationship = require("mongoose-relationship");
 
 // criando o Schema
-const CommentSchema = mongoose.Schema({
+const CommentSchema = new Schema({
   content: {
     type: String,
     required: true
@@ -10,11 +12,13 @@ const CommentSchema = mongoose.Schema({
   article: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Article",
+    childPath: "comment",
     required: true
   },
   member: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Member",
+    childPath: "comment",
     required: true
   },
   create_at: {
@@ -23,5 +27,8 @@ const CommentSchema = mongoose.Schema({
   }
 });
 
+CommentSchema.plugin(relationship, {
+  relationshipPathName: ["article", "member"]
+});
 // iniciando o Schema
 mongoose.model("Comment", CommentSchema);

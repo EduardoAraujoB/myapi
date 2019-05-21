@@ -37,7 +37,12 @@ module.exports = {
   async destroy(req, res) {
     const member = await Member.findById(req.params.id);
     member.article.map(async id => {
-      await Article.findByIdAndRemove(id);
+      const article = await Article.findById(id);
+      article.comment.map(async id => {
+        const comment = await Comment.findById(id);
+        await comment.remove();
+      });
+      await article.remove();
     });
     await member.remove();
     res.send();

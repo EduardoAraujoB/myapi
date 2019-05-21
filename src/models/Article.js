@@ -14,11 +14,17 @@ const ArticleSchema = new Schema({
     required: true
   },
   member: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.ObjectId,
     ref: "Member",
     childPath: "article",
     required: true
   },
+  comment: [
+    {
+      type: Schema.ObjectId,
+      ref: "Comment"
+    }
+  ],
   created_at: {
     type: Date,
     default: Date.now

@@ -6,6 +6,8 @@ const Article = mongoose.model("Article");
 
 const Member = mongoose.model("Member");
 
+const Comment = mongoose.model("Comment");
+
 module.exports = {
   // listando todos os registros
   async index(req, res) {
@@ -39,7 +41,13 @@ module.exports = {
     await Member.findByIdAndUpdate(article.member, {
       $pullAll: { article: [article._id] }
     });
-
+    article.comment.map(async id => {
+      const comment = await Comment.findById(id);
+      await Member.findByIdAndUpdate(comment.member, {
+        $pullAll: { comment: [comment._id] }
+      });
+      await comment.remove();
+    });
     await article.remove();
 
     return res.send();
