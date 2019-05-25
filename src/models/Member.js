@@ -12,6 +12,17 @@ const MemberSchema = new Schema({
     type: Date,
     required: true
   },
+  email: {
+    type: String,
+    lowercase: true,
+    required: true,
+    unique: true
+  },
+  password: {
+    type: String,
+    required: true,
+    select: false
+  },
   article: [
     {
       type: Schema.ObjectId,
