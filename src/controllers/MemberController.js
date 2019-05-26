@@ -6,6 +6,8 @@ const Member = mongoose.model("Member");
 
 const Article = mongoose.model("Article");
 
+const Comment = mongoose.model("Comment");
+
 module.exports = {
   // listando todos os registros
   async index(req, res) {
