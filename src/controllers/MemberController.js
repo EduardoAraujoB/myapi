@@ -1,5 +1,6 @@
 // importando ORM
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
 
 // iniciando o model
 const Member = mongoose.model("Member");
@@ -29,6 +30,21 @@ module.exports = {
     }
 
     const member = await Member.create(req.body);
+
+    return res.json(member);
+  },
+  // autenticando um membro
+  async authenticate(req, res) {
+    const { email, password } = req.body;
+
+    const member = await Member.findOne({ email }).select("+password");
+
+    if (!member) {
+      return res.status(400).send({ error: "Member not found" });
+    }
+    if (!(await bcrypt.compare(password, member.password))) {
+      return res.status(400).send({ error: "Email or Password incorrect" });
+    }
 
     return res.json(member);
   },
