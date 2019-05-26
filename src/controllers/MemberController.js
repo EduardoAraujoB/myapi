@@ -21,6 +21,11 @@ module.exports = {
   },
   // guardando um novo registro
   async store(req, res) {
+    const { email } = req.body;
+    if (await Member.findOne({ email })) {
+      return res.status(400).send({ error: "Member already exist" });
+    }
+
     const member = await Member.create(req.body);
 
     return res.json(member);
