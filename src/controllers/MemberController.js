@@ -1,5 +1,9 @@
 // importando ORM
 const mongoose = require("mongoose");
+const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
+const auth = require("../config/auth.json");
 
 // iniciando o model
 const Member = mongoose.model("Member");
@@ -7,6 +11,12 @@ const Member = mongoose.model("Member");
 const Article = mongoose.model("Article");
 
 const Comment = mongoose.model("Comment");
+
+function generateToken(params = {}) {
+  return jwt.sign(params, auth.secret, {
+    expiresIn: 86400
+  });
+}
 
 module.exports = {
   // listando todos os registros
@@ -30,7 +40,26 @@ module.exports = {
 
     const member = await Member.create(req.body);
 
-    return res.json(member);
+    member.password = undefined;
+
+    return res.send({ member, token: generateToken({ id: member._id }) });
+  },
+  // autenticando um membro
+  async authenticate(req, res) {
+    const { email, password } = req.body;
+
+    const member = await Member.findOne({ email }).select("+password");
+
+    if (!member) {
+      return res.status(400).send({ error: "Member not found" });
+    }
+    if (!(await bcrypt.compare(password, member.password))) {
+      return res.status(400).send({ error: "Password incorrect" });
+    }
+
+    member.password = undefined;
+
+    return res.send({ member, token: generateToken({ id: member._id }) });
   },
   // atualizando um registro existente
   async update(req, res) {

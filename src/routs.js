@@ -24,6 +24,7 @@ routs.delete("/articles/:id", ArticleController.destroy);
 routs.get("/members", MemberController.index);
 routs.get("/members/:id", MemberController.show);
 routs.post("/members", MemberController.store);
+routs.post("/members/authenticate", MemberController.authenticate);
 routs.put("/members/:id", MemberController.update);
 routs.delete("/members/:id", MemberController.destroy);
 
