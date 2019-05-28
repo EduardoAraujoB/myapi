@@ -1,6 +1,8 @@
 // importando ORM
 const express = require("express");
 
+const authMiddleware = require("./middlewares/auth");
+
 // preparando rotas
 const routs = express.Router();
 
@@ -21,7 +23,7 @@ routs.put("/articles/:id", ArticleController.update);
 routs.delete("/articles/:id", ArticleController.destroy);
 
 // rotas membros
-routs.get("/members", MemberController.index);
+routs.get("/members", authMiddleware, MemberController.index);
 routs.get("/members/:id", MemberController.show);
 routs.post("/members", MemberController.store);
 routs.post("/members/authenticate", MemberController.authenticate);
