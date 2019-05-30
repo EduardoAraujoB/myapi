@@ -23,11 +23,11 @@ module.exports = {
   async index(req, res) {
     const member = await Member.find().populate("article");
 
-    return res.send({ member, loggedMember: req.memberId });
+    return res.json(member);
   },
   // exibindo um registro
   async show(req, res) {
-    const member = await Member.findById(req.params.id).populate("article");
+    const member = await Member.findById(req.memberId).populate("article");
 
     return res.json(member);
   },
@@ -63,7 +63,7 @@ module.exports = {
   },
   // atualizando um registro existente
   async update(req, res) {
-    const member = await Member.findByIdAndUpdate(req.params.id, req.body, {
+    const member = await Member.findByIdAndUpdate(req.memberId, req.body, {
       new: true
     });
 

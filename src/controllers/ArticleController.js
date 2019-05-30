@@ -23,13 +23,18 @@ module.exports = {
   },
   // guardando um novo registro
   async store(req, res) {
-    const article = new Article(req.body);
+    const article = new Article({ ...req.body, member: req.memberId });
     await article.save();
 
     return res.json(article);
   },
   // atualizando um registro existente
   async update(req, res) {
+    const verifyArticleMember = await Article.findById(req.params.id);
+    if (verifyArticleMember.member != req.memberId) {
+      return res.send("Member not authrized to modify this article");
+    }
+
     const article = await Article.findByIdAndUpdate(req.params.id, req.body, {
       new: true
     });
