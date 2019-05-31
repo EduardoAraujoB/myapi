@@ -1,6 +1,8 @@
 // importando ORM
 const express = require("express");
 
+const authMiddleware = require("./middlewares/auth");
+
 // preparando rotas
 const routs = express.Router();
 
@@ -16,23 +18,23 @@ const CommentController = require("./controllers/CommentController");
 // rotas artigos
 routs.get("/articles", ArticleController.index);
 routs.get("/articles/:id", ArticleController.show);
-routs.post("/articles", ArticleController.store);
-routs.put("/articles/:id", ArticleController.update);
-routs.delete("/articles/:id", ArticleController.destroy);
+routs.post("/articles", authMiddleware, ArticleController.store);
+routs.put("/articles/:id", authMiddleware, ArticleController.update);
+routs.delete("/articles/:id", authMiddleware, ArticleController.destroy);
 
 // rotas membros
-routs.get("/members", MemberController.index);
-routs.get("/members/:id", MemberController.show);
-routs.post("/members", MemberController.store);
+routs.get("/members", authMiddleware, MemberController.index);
+routs.get("/member", authMiddleware, MemberController.show);
+routs.post("/member", MemberController.store);
 routs.post("/members/authenticate", MemberController.authenticate);
-routs.put("/members/:id", MemberController.update);
-routs.delete("/members/:id", MemberController.destroy);
+routs.put("/member", authMiddleware, MemberController.update);
+routs.delete("/member", authMiddleware, MemberController.destroy);
 
 // rotas comentários
 routs.get("/comments", CommentController.index);
 routs.get("/comments/:id", CommentController.show);
-routs.post("/comments", CommentController.store);
-routs.put("/comments/:id", CommentController.update);
-routs.delete("/comments/:id", CommentController.destroy);
+routs.post("/comments", authMiddleware, CommentController.store);
+routs.put("/comments/:id", authMiddleware, CommentController.update);
+routs.delete("/comments/:id", authMiddleware, CommentController.destroy);
 
 module.exports = routs;

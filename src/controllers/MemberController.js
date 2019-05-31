@@ -27,7 +27,7 @@ module.exports = {
   },
   // exibindo um registro
   async show(req, res) {
-    const member = await Member.findById(req.params.id).populate("article");
+    const member = await Member.findById(req.memberId).populate("article");
 
     return res.json(member);
   },
@@ -63,7 +63,7 @@ module.exports = {
   },
   // atualizando um registro existente
   async update(req, res) {
-    const member = await Member.findByIdAndUpdate(req.params.id, req.body, {
+    const member = await Member.findByIdAndUpdate(req.memberId, req.body, {
       new: true
     });
 
@@ -71,7 +71,7 @@ module.exports = {
   },
   // apagando um registro
   async destroy(req, res) {
-    const member = await Member.findById(req.params.id);
+    const member = await Member.findById(req.memberId);
     member.article.map(async id => {
       const article = await Article.findById(id);
       article.comment.map(async id => {

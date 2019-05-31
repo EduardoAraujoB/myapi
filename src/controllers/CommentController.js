@@ -23,12 +23,19 @@ module.exports = {
   },
   // guardando um novo registro
   async store(req, res) {
-    const comment = await Comment.create(req.body);
+    const comment = await Comment.create({ ...req.body, member: req.memberId });
 
     return res.json(comment);
   },
   // atualizando um registro existente
   async update(req, res) {
+    const verifyCommentMember = await Comment.findById(req.params.id);
+    if (verifyCommentMember.member != req.memberId) {
+      return res.status(401).send({
+        error: "Member not authorized to modify this comment"
+      });
+    }
+
     const comment = await Comment.findByIdAndUpdate(req.params.id, req.body, {
       new: true
     });
@@ -38,6 +45,11 @@ module.exports = {
   // apagando um registro
   async destroy(req, res) {
     const comment = await Comment.findById(req.params.id);
+    if (comment.member != req.memberId) {
+      return res.status(401).send({
+        error: "Member not authorized to modify this comment"
+      });
+    }
     await Article.findByIdAndUpdate(comment.article, {
       $pullAll: { comment: [comment._id] }
     });
