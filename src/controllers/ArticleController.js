@@ -32,7 +32,9 @@ module.exports = {
   async update(req, res) {
     const verifyArticleMember = await Article.findById(req.params.id);
     if (verifyArticleMember.member != req.memberId) {
-      return res.send("Member not authrized to modify this article");
+      return res
+        .status(401)
+        .send({ error: "Member not authrized to modify this article" });
     }
 
     const article = await Article.findByIdAndUpdate(req.params.id, req.body, {
@@ -43,6 +45,11 @@ module.exports = {
   // apagando um registro
   async destroy(req, res) {
     const article = await Article.findById(req.params.id);
+    if (article.member != req.memberId) {
+      return res
+        .status(401)
+        .send({ error: "Member not authrized to modify this article" });
+    }
     await Member.findByIdAndUpdate(article.member, {
       $pullAll: { article: [article._id] }
     });

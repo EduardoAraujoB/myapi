@@ -71,7 +71,7 @@ module.exports = {
   },
   // apagando um registro
   async destroy(req, res) {
-    const member = await Member.findById(req.params.id);
+    const member = await Member.findById(req.memberId);
     member.article.map(async id => {
       const article = await Article.findById(id);
       article.comment.map(async id => {
