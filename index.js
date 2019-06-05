@@ -1,3 +1,6 @@
+// configurando ambiente
+require("dotenv/config");
+
 // importando o express
 const express = require("express");
 
@@ -20,7 +23,7 @@ app.use(express.json());
 app.use(cors());
 
 // conectando ao banco
-mongoose.connect("mongodb://localhost:27017/my-api", { useNewUrlParser: true });
+mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true });
 
 // iniciando models
 requireDir("./src/models");
@@ -29,4 +32,4 @@ requireDir("./src/models");
 app.use("/api", require("./src/routs"));
 
 // porta da aplicão
-app.listen("3100");
+app.listen(process.env.APP_PORT);
