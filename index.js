@@ -29,8 +29,7 @@ mongoose.connect(process.env.DB_CONNECT, { useNewUrlParser: true });
 requireDir("./src/models");
 
 // iniciando rotas
-app.use("*", require("./src/routs"));
-console.log(app.use("*", require("./src/routs")));
+app.use(require("./src/routs"));
 
 // porta da aplicão
 app.listen(process.env.PORT);

@@ -16,25 +16,25 @@ const MemberController = require("./controllers/MemberController");
 const CommentController = require("./controllers/CommentController");
 
 // rotas artigos
-routs.get("/articles", ArticleController.index);
-routs.get("/articles/:id", ArticleController.show);
-routs.post("/articles", authMiddleware, ArticleController.store);
-routs.put("/articles/:id", authMiddleware, ArticleController.update);
-routs.delete("/articles/:id", authMiddleware, ArticleController.destroy);
+routs.get("*/articles", ArticleController.index);
+routs.get("*/articles/:id", ArticleController.show);
+routs.post("*/articles", authMiddleware, ArticleController.store);
+routs.put("*/articles/:id", authMiddleware, ArticleController.update);
+routs.delete("*/articles/:id", authMiddleware, ArticleController.destroy);
 
 // rotas membros
-routs.get("/members", authMiddleware, MemberController.index);
-routs.get("/member", authMiddleware, MemberController.show);
-routs.post("/member", MemberController.store);
-routs.post("/members/authenticate", MemberController.authenticate);
-routs.put("/member", authMiddleware, MemberController.update);
-routs.delete("/member", authMiddleware, MemberController.destroy);
+routs.get("*/members", authMiddleware, MemberController.index);
+routs.get("*/member", authMiddleware, MemberController.show);
+routs.post("*/member", MemberController.store);
+routs.post("*/members/authenticate", MemberController.authenticate);
+routs.put("*/member", authMiddleware, MemberController.update);
+routs.delete("*/member", authMiddleware, MemberController.destroy);
 
 // rotas comentários
-routs.get("/comments", CommentController.index);
-routs.get("/comments/:id", CommentController.show);
-routs.post("/comments", authMiddleware, CommentController.store);
-routs.put("/comments/:id", authMiddleware, CommentController.update);
-routs.delete("/comments/:id", authMiddleware, CommentController.destroy);
+routs.get("*/comments", CommentController.index);
+routs.get("*/comments/:id", CommentController.show);
+routs.post("*/comments", authMiddleware, CommentController.store);
+routs.put("*/comments/:id", authMiddleware, CommentController.update);
+routs.delete("*/comments/:id", authMiddleware, CommentController.destroy);
 
 module.exports = routs;
