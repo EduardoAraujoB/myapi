@@ -6,7 +6,7 @@ module.exports = {
     const { token } = req.body;
     jwt.verify(token, auth.secret, (err, decoded) => {
       if (err) {
-        return res.status(401).send({ token: "invalid" });
+        return res.send({ token: "invalid" });
       }
       res.send({ token: "valid" });
     });
