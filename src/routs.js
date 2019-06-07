@@ -1,6 +1,7 @@
 // importando ORM
 const express = require("express");
 
+// rota de autenticação
 const authMiddleware = require("./middlewares/auth");
 
 // preparando rotas
@@ -14,6 +15,12 @@ const MemberController = require("./controllers/MemberController");
 
 // controle comentários
 const CommentController = require("./controllers/CommentController");
+
+// validar token
+const token = require("./token");
+
+// rota de validacao
+routs.get("*/token/validate", token.validate);
 
 // rotas artigos
 routs.get("*/articles", ArticleController.index);
