@@ -20,7 +20,7 @@ const CommentController = require("./controllers/CommentController");
 const token = require("./token");
 
 // rota de validacao
-routs.get("*/token/validate", token.validate);
+routs.post("*/token/validate", token.validate);
 
 // rotas artigos
 routs.get("*/articles", ArticleController.index);
