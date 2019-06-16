@@ -11,7 +11,9 @@ const Member = mongoose.model("Member");
 module.exports = {
   // listando todos os registros
   async index(req, res) {
-    const comment = await Comment.find({ article: req.params.id });
+    const comment = await Comment.find({ article: req.params.id }).populate(
+      "member"
+    );
 
     return res.json(comment);
   },
