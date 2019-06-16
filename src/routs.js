@@ -38,7 +38,7 @@ routs.put("*/member", authMiddleware, MemberController.update);
 routs.delete("*/member", authMiddleware, MemberController.destroy);
 
 // rotas comentários
-routs.get("*/comments", CommentController.index);
+routs.get("*/comments/:id", CommentController.index);
 routs.get("*/comments/:id", CommentController.show);
 routs.post("*/comments", authMiddleware, CommentController.store);
 routs.put("*/comments/:id", authMiddleware, CommentController.update);
