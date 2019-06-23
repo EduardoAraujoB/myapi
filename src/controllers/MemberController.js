@@ -63,11 +63,22 @@ module.exports = {
   },
   // atualizando um registro existente
   async update(req, res) {
-    const member = await Member.findByIdAndUpdate(req.memberId, req.body, {
-      new: true
-    });
-
-    return res.json(member);
+    if (!req.body.password) {
+      const member = await Member.findByIdAndUpdate(req.memberId, req.body, {
+        new: true
+      });
+      return res.json(member);
+    } else {
+      const hash = await bcrypt.hash(req.body.password, 10);
+      const member = await Member.findByIdAndUpdate(
+        req.memberId,
+        { ...req.body, password: hash },
+        {
+          new: true
+        }
+      );
+      return res.json(member);
+    }
   },
   // apagando um registro
   async destroy(req, res) {
