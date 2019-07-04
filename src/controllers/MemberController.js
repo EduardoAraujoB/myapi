@@ -85,8 +85,8 @@ module.exports = {
     const member = await Member.findById(req.memberId);
     member.article.map(async id => {
       const article = await Article.findById(id);
-      article.comment.map(async id => {
-        const comment = await Comment.findById(id);
+      article.comment.map(async CommentId => {
+        const comment = await Comment.findById(CommentId);
         await comment.remove();
       });
       await article.remove();
